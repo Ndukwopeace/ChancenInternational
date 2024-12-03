@@ -1,156 +1,91 @@
-.all{
-    background: linear-gradient(rgba(255,0,0,0),#64b5f6, #3295f8 );
-	min-height: 100vh;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	padding-bottom: rem;
-}
- 
-.all .form{
-	background: whitesmoke;
-	border-radius: 1rem;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    width: 100%; 
-    max-width: 400px; 
+/* From Uiverse.io by alexruix */ 
+.register, .login {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  
 }
 
-.all .form .field{
-margin-bottom: 0.5rem;
-}
-
-.all .form .field label{
-	font-size: 1rem;
-    font-weight: bold;
-    display: block;
-}
-
-.all .form .field input{
-	height: 2.5rem;
-	border: 2px solid rgb(199, 193, 193);
-	font-size: 1rem;
-	padding: 0 0.5rem;
-	width: 100%;
-}
-
-.all .form .button{
-	border: transparent;
-	border-radius: 10px;
-	text-align: center;
-	padding: 0.8rem;
-	margin: 1rem auto 0;
-	width: 95%;
-    background: linear-gradient(#64b5f6, #3295f8 );
-	cursor: pointer;
-	color: white;
-    font-weight: bold;
-}
-
-.all .form .button:hover{
-	background: linear-gradient(#3295f8, #64b5f6);
-}
-
-.all .form .link {
-	font-size: 1rem;
-	font-weight: 500;
-	margin:auto;
-	text-align: center;
-}
-
-@media (min-width: 768px) {
-	.all .form {
-		width: 50%; 
-		max-width: 650px;
-	}
-
-	.all .form .field label {
-		font-size: 1.2rem;
-	}
-
-	.all .form .field input {
-		font-size: 1.1rem;
-	}
-
-	.all .form .button {
-		font-size: 1.1rem;
-	}
-
-	.all .form .link {
-		font-size: 1.2rem;
-	}
-}
-
-@media (min-width: 1024px) {
-	.all .form {
-		width: 50%; 
-	}
-}
-
-
-
-/* Base Styles */
-/* .all {
-    background: linear-gradient(rgba(255, 0, 0, 0), #64b5f6, #3295f8);
-    min-height: 100vh;
+.form-box {
+    max-width: 400px;
+    background: #f1f7fe;
+    overflow: hidden;
+    border-radius: 16px;
+    color: #010101;
+  }
+  
+  .form {
+    position: relative;
     display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 1rem;
-} */
-/* 
-.all .form {
-    background: whitesmoke;
-    border-radius: 1rem;
-    padding: 2rem;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    width: 100%; 
-    max-width: 400px; 
-}
-
-.all .form .field {
-    margin-bottom: 1rem;
-}
-
-.all .form .field label {
-    font-size: 1rem;
-    font-weight: bold;
-    display: block;
-    margin-bottom: 0.5rem;
-}
-
-.all .form .field input {
-    height: 2.5rem;
-    width: 100%;
-    border: 2px solid rgb(199, 193, 193);
-    border-radius: 0.5rem;
-    padding: 0 0.5rem;
-    box-sizing: border-box;
-    font-size: 1rem;
-}
-
-.all .form .button {
-    border: transparent;
-    border-radius: 10px;
+    flex-direction: column;
+    padding: 32px 24px 24px;
+    gap: 16px;
     text-align: center;
-    padding: 0.8rem;
-    margin: 1rem auto 0;
+  }
+  
+  /*Form text*/
+  .title {
+    font-weight: bold;
+    font-size: 1.6rem;
+  }
+  
+  .subtitle {
+    font-size: 1rem;
+    color: #666;
+  }
+  
+  /*Inputs box*/
+  .form-container {
+    overflow: hidden;
+    border-radius: 8px;
+    margin: 1rem 0 .5rem;
     width: 100%;
-    background: linear-gradient(#64b5f6, #3295f8);
+  }
+  
+  .input {
+    background: none;
+    border: 0;
+    outline: 0;
+    height: 40px;
+    width: 100%;
+    border-bottom: 1px solid #eee;
+    font-size: .9rem;
+    padding: 8px 15px;
+    margin-bottom: 15px;
+  }
+  
+  .form-section {
+    padding: 16px;
+    font-size: .85rem;
+    background-color: #e0ecfb;
+    box-shadow: rgb(0 0 0 / 8%) 0 -1px;
+  }
+  
+  .form-section a {
+    font-weight: bold;
+    color: #0066ff;
+    transition: color .3s ease;
+  }
+  
+  .form-section a:hover {
+    color: #005ce6;
+    text-decoration: underline;
+  }
+  
+  /*Button*/
+  .form button {
+    background-color: #0066ff;
+    color: #fff;
+    border: 0;
+    border-radius: 24px;
+    padding: 10px 16px;
+    font-size: 1rem;
+    font-weight: 600;
     cursor: pointer;
-    font-size: 1rem;
-    color: white;
-    font-weight: bold;
-}
-
-.all .form .button:hover {
-    background: linear-gradient(#3295f8, #64b5f6);
-}
-
-.all .form .link {
-    font-size: 1rem;
-    font-weight: 500;
-    text-align: center;
-    margin-top: 1rem;
-} */
-
-/* Media Queries for Responsiveness */
+    transition: background-color .3s ease;
+  }
+  
+  .form button:hover {
+    background-color: #005ce6;
+  }

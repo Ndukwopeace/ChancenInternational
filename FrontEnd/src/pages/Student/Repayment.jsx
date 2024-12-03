@@ -53,8 +53,8 @@ const Repayment = () => {
     <div className="main" id="main">
       <Grid container spacing={4} style={{ padding: "20px" }}>
         {/* Page Title */}
-        <Grid item xs={12} style={{   background: 'linear-gradient(to right, #1976d2, #64b5f6)',color:'white',height:'20vh',borderRadius:'1rem',padding:'3rem' }}>
-  <Typography variant="h3" gutterBottom >
+        <Grid item xs={12} style={{   background: 'linear-gradient(to right, #1976d2, #64b5f6)',color:'white',height:'25vh',borderRadius:'1rem',padding:'3rem' }}>
+  <Typography variant="h3" width="100%" gutterBottom >
             Repayments
           </Typography>
           <Typography variant="h5">Summary Of Total Dept Of 600,000 XAF</Typography>
@@ -114,7 +114,7 @@ const Repayment = () => {
                 ],
               },
             ]}
-            width={500}
+            width="300"
             height={250}
           />
         </div>

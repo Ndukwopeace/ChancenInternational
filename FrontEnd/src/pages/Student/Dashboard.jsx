@@ -5,6 +5,7 @@ import "../../style/studentstyles/dashboard.css";
 import { CircularProgressbar } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
 import { LineChart } from "@mui/x-charts/LineChart";
+import axios from "axios";
 
 const Dashboard = () => {
   useTopbar();

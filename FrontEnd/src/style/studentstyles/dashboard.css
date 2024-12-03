@@ -1,7 +1,7 @@
 #main .head {
   background: linear-gradient(to right, #1976d2, #64b5f6);
   color: white;
-  height: 20vh;
+  height: 25vh;
   width: 100%;
   padding: 1rem;
   margin:0 0 2rem 0;
@@ -17,7 +17,7 @@
 
 #main .head p {
   font-size: 1.25rem; 
-  padding: 0 0 0 1rem; /
+  padding: 0 0 0 1rem; 
 }
 
 #main .ally {
@@ -35,10 +35,9 @@
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
   width: 100%;
   max-width: 45rem;  
-  font-size: 1.2rem; 
+  font-size: 1rem; 
   height: 100%;
   padding: 1rem; 
-  box-sizing: border-box;
 }
 
 #main .ally .two {
@@ -50,7 +49,6 @@
   max-width: 45rem;  
   font-size: 1rem; 
   padding: 1rem; 
-  box-sizing: border-box;
 }
 
 #main .ally .one h1 {
@@ -66,7 +64,7 @@
 
 #main .ally .one .break p {
  font-size: x-large; 
- line-height: 4rem;
+ line-height: 3rem;
 }
 
 #main .ally .two .content {
@@ -110,7 +108,7 @@
   
   #main .ally .one,
   #main .ally .two {
-    width: 35vw; 
-    height: 35vh; 
+    width: 45%; 
+    height: 40%; 
   }
 }

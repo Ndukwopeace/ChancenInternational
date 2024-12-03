@@ -1,0 +1,227 @@
+@import url('https://fonts.googleapis.com/css2?family=Balsamiq+Sans:wght@700&family=Italianno&display=swap');
+
+.content .top{
+    display: flex;
+    justify-content: space-between;
+}
+
+.content .top .logo{
+    display: flex;
+}
+
+.content .top .logo img{
+    width: 9rem;
+}
+
+.content .top .logo p{
+    margin-top: 2rem;
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #1976d2;
+}
+
+.content .top .links ul{
+    display: flex;
+}
+
+.content .top .links ul li{
+    margin-right: 3rem;
+    margin-top: 2rem;
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+.content .top .links ul li:hover{
+    color: #1976d2;
+}
+
+.content .top .links ul button{
+    margin-right: 3rem;
+    margin-top: 1.5rem;
+    font-size: 1.5rem;
+    cursor: pointer;
+    padding: .5rem;
+    text-align: center;
+    background-color: rgb(0, 195, 255);
+    border-radius: 15px;
+}
+
+.content .top .links ul button:hover{
+    cursor: pointer;
+  background-color: #1976d2;
+  color: white;
+}
+
+.content .welcome{
+    background-image: url("../assets/Images/pexels.jpg");
+    height: 60rem;
+    width: 100%;
+    background-size: 100% 100%;
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+}
+
+.content .welcome .text{
+    padding: 15rem;
+    color: white;
+}
+
+.content .welcome .text h1{
+    font-size: 5rem;
+    margin-bottom: 5rem;
+    color: #83f5ef;
+}
+
+.content .welcome .text p{
+    font-size: 2rem;
+}
+
+.content .welcome .text button {
+    border: 2px solid #83f5ef;
+    border-radius: 3rem;
+    padding: 1rem;
+    font-size: larger;
+    margin-top: 4rem;
+}
+
+.content .welcome .text button:hover{
+    cursor: pointer;
+    background-color: #47c7c1;
+}
+
+.content .about-us{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: whitesmoke;
+}
+
+.content .about-us img{
+    width: 50%;
+}
+
+.content .about-us .part {
+    font-size: 1.4rem;
+}
+
+.content .about-us .part h1{
+    text-align: center;
+    font-size: 8rem;
+    font-family:Italianno;
+    color: #1976d2;
+}
+
+.content .working{
+    background-color: rgb(243, 238, 238);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.content .working img{
+    width: 40%;
+}
+
+.content .working .part2 p {
+    font-size: 1.5em;
+    margin-bottom: 1rem;
+}
+
+.content .working .part2 h1{
+    text-align: center;
+    font-size: 8rem;
+    font-family:Italianno;
+    color: #1976d2;
+}
+
+.content .footer{
+background-color:black;
+padding: 1rem;
+}
+
+.content .footer h1{
+    font-weight: bold;
+    text-decoration: underline;
+    text-align: center;
+}
+
+.content .footer footer{
+    display: flex;
+ justify-content: space-around;
+    align-items: center;
+    color: white;
+    font-size: 1.5rem;
+    margin-right: 3rem;
+}
+
+.content .footer footer .links{
+margin-right: 3rem;
+line-height: 2rem;
+cursor: pointer;
+}
+
+
+.content .footer footer .contact{
+    line-height: 2rem;
+    cursor: pointer;
+}
+
+@media (max-width: 1200px) {
+    .content .about-us {
+        flex-direction: column;
+        margin: 1rem;
+    }
+
+    .content .top .links ul li {
+        margin-right: 1.5rem; 
+    }
+    
+    .content .top .links ul button {
+        margin-right: 1.5rem; 
+    }
+
+    .content .welcome .text {
+        padding: 10rem; 
+    }
+
+    .content .welcome .text h1 {
+        font-size: 4rem;
+    }
+
+    .content .welcome .text p {
+        font-size: 1.5rem; 
+    }
+
+    .content .working{
+        flex-direction:column-reverse;
+    }
+
+    .content .about-us img,
+    .content .working img {
+        width: 90%; 
+    }
+
+    .content .about-us .part h1,
+    .content .working .part2 h1 {
+        font-size: 6rem; 
+    }
+
+    .content .footer footer{
+        flex-direction: column;
+        align-items: start;
+    }
+
+    .content .footer footer h1{
+        text-align: left;
+        padding-top: 1rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .content .top {
+        align-items: center; 
+    }
+
+    .content .top .links ul {
+        justify-content: center;
+    }
+}

@@ -18,8 +18,9 @@ export class Funding {
   @Column('decimal', { nullable: true })
   amountRepaid: number;
 
-  @ManyToOne(() => Student, (student) => student.id, { eager: true })
+  @ManyToOne(() => Student, (student) => student.funding)
   student: Student;
+
 
   @Column({ default: true })
   isActive: boolean; // Tracks if funding is actively being repaid

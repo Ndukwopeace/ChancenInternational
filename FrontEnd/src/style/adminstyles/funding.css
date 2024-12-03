@@ -1,0 +1,156 @@
+.all{
+    background: linear-gradient(rgba(255,0,0,0),#64b5f6, #3295f8 );
+	min-height: 100vh;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding-bottom: rem;
+}
+ 
+.all .form{
+	background: whitesmoke;
+	border-radius: 1rem;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    width: 100%; 
+    max-width: 400px; 
+}
+
+.all .form .field{
+margin-bottom: 0.5rem;
+}
+
+.all .form .field label{
+	font-size: 1rem;
+    font-weight: bold;
+    display: block;
+}
+
+.all .form .field input{
+	height: 2.5rem;
+	border: 2px solid rgb(199, 193, 193);
+	font-size: 1rem;
+	padding: 0 0.5rem;
+	width: 100%;
+}
+
+.all .form .button{
+	border: transparent;
+	border-radius: 10px;
+	text-align: center;
+	padding: 0.8rem;
+	margin: 1rem auto 0;
+	width: 95%;
+    background: linear-gradient(#64b5f6, #3295f8 );
+	cursor: pointer;
+	color: white;
+    font-weight: bold;
+}
+
+.all .form .button:hover{
+	background: linear-gradient(#3295f8, #64b5f6);
+}
+
+.all .form .link {
+	font-size: 1rem;
+	font-weight: 500;
+	margin:auto;
+	text-align: center;
+}
+
+@media (min-width: 768px) {
+	.all .form {
+		width: 50%; 
+		max-width: 650px;
+	}
+
+	.all .form .field label {
+		font-size: 1.2rem;
+	}
+
+	.all .form .field input {
+		font-size: 1.1rem;
+	}
+
+	.all .form .button {
+		font-size: 1.1rem;
+	}
+
+	.all .form .link {
+		font-size: 1.2rem;
+	}
+}
+
+@media (min-width: 1024px) {
+	.all .form {
+		width: 50%; 
+	}
+}
+
+
+
+/* Base Styles */
+/* .all {
+    background: linear-gradient(rgba(255, 0, 0, 0), #64b5f6, #3295f8);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+} */
+/* 
+.all .form {
+    background: whitesmoke;
+    border-radius: 1rem;
+    padding: 2rem;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    width: 100%; 
+    max-width: 400px; 
+}
+
+.all .form .field {
+    margin-bottom: 1rem;
+}
+
+.all .form .field label {
+    font-size: 1rem;
+    font-weight: bold;
+    display: block;
+    margin-bottom: 0.5rem;
+}
+
+.all .form .field input {
+    height: 2.5rem;
+    width: 100%;
+    border: 2px solid rgb(199, 193, 193);
+    border-radius: 0.5rem;
+    padding: 0 0.5rem;
+    box-sizing: border-box;
+    font-size: 1rem;
+}
+
+.all .form .button {
+    border: transparent;
+    border-radius: 10px;
+    text-align: center;
+    padding: 0.8rem;
+    margin: 1rem auto 0;
+    width: 100%;
+    background: linear-gradient(#64b5f6, #3295f8);
+    cursor: pointer;
+    font-size: 1rem;
+    color: white;
+    font-weight: bold;
+}
+
+.all .form .button:hover {
+    background: linear-gradient(#3295f8, #64b5f6);
+}
+
+.all .form .link {
+    font-size: 1rem;
+    font-weight: 500;
+    text-align: center;
+    margin-top: 1rem;
+} */
+
+/* Media Queries for Responsiveness */

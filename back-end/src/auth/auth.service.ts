@@ -18,15 +18,21 @@ export class AuthService {
     return this.userRepository.save(user);
   }
 
-  async login(email: string, password: string): Promise<{ accessToken: string }> {
-    const user = await this.userRepository.findOneBy({ email });
-    if (!user || !(await bcrypt.compare(password, user.password))) {
-      throw new UnauthorizedException('Invalid credentials');
-    }
-    const payload = { userId: user.id, role: user.role };
-    const accessToken = this.jwtService.sign(payload);
-    return { accessToken };
+  async login(email: string, password: string): Promise<{ accessToken: string; role: string }> {
+  const user = await this.userRepository.findOne({ where: { email } });
+  if (!user || !(await bcrypt.compare(password, user.password))) {
+    throw new UnauthorizedException('Invalid credentials');
   }
+
+  const payload = { email: user.email, role: user.role }; // Include role in JWT payload
+  const accessToken = this.jwtService.sign(payload);
+
+  return {
+    accessToken,
+    role: user.role, // Include role in response
+  };
+}
+
 
   async validateUser(userId: number): Promise<User> {
     return this.userRepository.findOneBy({ id: userId });

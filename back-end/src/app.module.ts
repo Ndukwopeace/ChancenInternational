@@ -13,7 +13,7 @@ import { RepaymentsModule } from './repayments/repayments.module';
       host: 'localhost',
       port: 5432,
       username: 'postgres',
-      password: 'pamelajo25',
+      password: 'root',
       database: 'chancen_finances',
       autoLoadEntities: true, // Automatically load entities
       synchronize: true, // Only for development; disable in production

@@ -1,6 +1,7 @@
 import React from "react";
 import useTopbar from "../../re-components/Student/useTopbar";
 import "../../style/studentstyles/profile.css";
+import logo from "../../assets/Images/adminImages/Chance.png"
 
 const Profile = () => {
   useTopbar()
@@ -12,7 +13,7 @@ const Profile = () => {
           <div className="up"></div>
           <div className="cont">
             <img
-              src="../../src/assets/Images/studentImages/map.jpeg"
+              src={logo}
               alt="image"
             />
             <div className="info">

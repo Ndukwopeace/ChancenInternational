@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import useSideBar from "../../re-components/Admin/UseSidebar";
 import {
     Grid,
@@ -23,38 +24,66 @@ import {
 
 const Students = () => {
     useSideBar();
+
+    // State management
+    const [students, setStudents] = useState([]);
+    const [institutions, setInstitutions] = useState([]);
     const [searchTerm, setSearchTerm] = useState("");
     const [filterInstitution, setFilterInstitution] = useState("All");
     const [selectedStudent, setSelectedStudent] = useState(null);
     const [isDetailModalOpen, setDetailModalOpen] = useState(false);
-    const [isAddFundingModalOpen, setAddFundingModalOpen] = useState(false);
 
-    // Dummy data for students
-    const students = [
-        { name: "John Doe", institution: "Institution A", debt: "$12,000", completed: "50%", status: "In Progress" },
-        { name: "Jane Smith", institution: "Institution B", debt: "$15,000", completed: "30%", status: "Suspended" },
-        { name: "Alice Johnson", institution: "Institution A", debt: "$10,000", completed: "70%", status: "Completed" },
-    ];
+    // Fetch data on component load
+    useEffect(() => {
+        fetchStudents();
+        fetchInstitutions();
+    }, []);
 
-    const institutions = ["All", "Institution A", "Institution B"];
+    const fetchStudents = async () => {
+        try {
+            const response = await axios.get("http://localhost:3000/students");
+            console.log(response.data);
+            setStudents(response.data);
+        } catch (error) {
+            console.error("Error fetching students:", error);
+        }
+    };
+
+    const fetchInstitutions = async () => {
+        try {
+            const response = await axios.get("http://localhost:3000/institutions");
+            setInstitutions(["All", ...response.data.map((inst) => inst.name)]);
+        } catch (error) {
+            console.error("Error fetching institutions:", error);
+        }
+    };
+
+
+
+    // Handlers
+    const handleViewDetails = async (studentId) => {
+        try {
+            const response = await axios.get(`/students/${studentId}`);
+            setSelectedStudent(response.data);
+            setDetailModalOpen(true);
+        } catch (error) {
+            console.error("Error fetching student details:", error);
+        }
+    };
+
+    const handleSearchChange = (e) => setSearchTerm(e.target.value);
+    const handleFilterChange = (e) => setFilterInstitution(e.target.value);
 
     // Filtered and searched student list
-    const filteredStudents = students.filter((student) => {
-        return (
-            (filterInstitution === "All" || student.institution === filterInstitution) &&
-            student.name.toLowerCase().includes(searchTerm.toLowerCase())
-        );
-    });
+    const filteredStudents = Array.isArray(students)
+        ? students.filter((student) => {
+            const matchesInstitution =
+                filterInstitution === "All" || student.institution.name === filterInstitution;
+            const matchesSearch = student.name.toLowerCase().includes(searchTerm.toLowerCase());
+            return matchesInstitution && matchesSearch;
+        })
+        : [];
 
-    // Handlers for modals
-    const handleViewDetails = (student) => {
-        setSelectedStudent(student);
-        setDetailModalOpen(true);
-    };
-
-    const handleAddFunding = () => {
-        setAddFundingModalOpen(true);
-    };
 
     return (
         <div className="main" id="main">
@@ -71,16 +100,16 @@ const Students = () => {
                     <TextField
                         fullWidth
                         variant="outlined"
-                        label="Search by Name or ID"
+                        label="Search by Name"
                         value={searchTerm}
-                        onChange={(e) => setSearchTerm(e.target.value)}
+                        onChange={handleSearchChange}
                     />
                 </Grid>
                 <Grid item xs={12} md={3}>
                     <Select
                         fullWidth
                         value={filterInstitution}
-                        onChange={(e) => setFilterInstitution(e.target.value)}
+                        onChange={handleFilterChange}
                         displayEmpty
                     >
                         {institutions.map((institution, index) => (
@@ -89,11 +118,6 @@ const Students = () => {
                             </MenuItem>
                         ))}
                     </Select>
-                </Grid>
-                <Grid item xs={12} md={3}>
-                    <Button fullWidth variant="contained" color="primary" onClick={handleAddFunding}>
-                        Add Funding
-                    </Button>
                 </Grid>
 
                 {/* Students Table */}
@@ -113,26 +137,35 @@ const Students = () => {
                                         </TableRow>
                                     </TableHead>
                                     <TableBody>
-                                        {filteredStudents.map((student, index) => (
-                                            <TableRow key={index}>
-                                                <TableCell>{student.name}</TableCell>
-                                                <TableCell>{student.institution}</TableCell>
-                                                <TableCell>{student.debt}</TableCell>
-                                                <TableCell>{student.completed}</TableCell>
-                                                <TableCell>{student.status}</TableCell>
-                                                <TableCell>
-                                                    <Button
-                                                        size="small"
-                                                        variant="contained"
-                                                        color="primary"
-                                                        onClick={() => handleViewDetails(student)}
-                                                    >
-                                                        View Details
-                                                    </Button>
-                                                </TableCell>
-                                            </TableRow>
-                                        ))}
+                                        {students.map((student) => {
+                                            const funding = student.funding || {}; // Fallback to an empty object if funding is undefined
+                                            const totalDebt = funding.totalDebt || 0;
+                                            const amountRepaid = funding.amountRepaid || 0;
+                                            const repaymentPercentage = totalDebt > 0 ? ((amountRepaid / totalDebt) * 100).toFixed(2) : "0.00";
+
+                                            return (
+                                                <TableRow key={student.id}>
+                                                    <TableCell>{student.name}</TableCell>
+                                                    <TableCell>{student.institution}</TableCell>
+                                                    <TableCell>${totalDebt.toFixed(2)}</TableCell>
+                                                    <TableCell>{repaymentPercentage}%</TableCell>
+                                                    <TableCell>{funding.isActive ? "In Progress" : "Suspended"}</TableCell>
+                                                    <TableCell>
+                                                        <Button
+                                                            size="small"
+                                                            variant="contained"
+                                                            color="primary"
+                                                            onClick={() => handleViewDetails(student.id)}
+                                                        >
+                                                            View Details
+                                                        </Button>
+                                                    </TableCell>
+                                                </TableRow>
+                                            );
+                                        })}
                                     </TableBody>
+
+
                                 </Table>
                             </TableContainer>
                         </CardContent>
@@ -147,9 +180,20 @@ const Students = () => {
                             <>
                                 <Typography variant="subtitle1">Name: {selectedStudent.name}</Typography>
                                 <Typography variant="subtitle1">Institution: {selectedStudent.institution}</Typography>
-                                <Typography variant="subtitle1">Total Debt: {selectedStudent.debt}</Typography>
-                                <Typography variant="subtitle1">Repayments Completed: {selectedStudent.completed}</Typography>
-                                <Typography variant="subtitle1">Status: {selectedStudent.status}</Typography>
+                                {selectedStudent.funding ? (
+                                    <>
+                                        <Typography variant="subtitle1">Total Debt: ${selectedStudent.funding.totalDebt.toFixed(2)}</Typography>
+                                        <Typography variant="subtitle1">Amount Repaid: ${selectedStudent.funding.amountRepaid.toFixed(2)}</Typography>
+                                        <Typography variant="subtitle1">
+                                            Repayment Progress: {((selectedStudent.funding.amountRepaid / selectedStudent.funding.totalDebt) * 100).toFixed(2)}%
+                                        </Typography>
+                                        <Typography variant="subtitle1">
+                                            Status: {selectedStudent.funding.isActive ? "In Progress" : "Suspended"}
+                                        </Typography>
+                                    </>
+                                ) : (
+                                    <Typography variant="subtitle1">No funding information available.</Typography>
+                                )}
                             </>
                         )}
                     </DialogContent>
@@ -158,20 +202,6 @@ const Students = () => {
                     </DialogActions>
                 </Dialog>
 
-                {/* Add Funding Modal */}
-                <Dialog open={isAddFundingModalOpen} onClose={() => setAddFundingModalOpen(false)}>
-                    <DialogTitle>Add Funding</DialogTitle>
-                    <DialogContent>
-                        <TextField fullWidth variant="outlined" label="Funding Amount" style={{ marginBottom: "15px" }} />
-                        <TextField fullWidth variant="outlined" label="Funding Description" multiline rows={3} />
-                    </DialogContent>
-                    <DialogActions>
-                        <Button onClick={() => setAddFundingModalOpen(false)}>Cancel</Button>
-                        <Button variant="contained" color="primary">
-                            Submit
-                        </Button>
-                    </DialogActions>
-                </Dialog>
             </Grid>
         </div>
     );

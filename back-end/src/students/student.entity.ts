@@ -14,17 +14,17 @@ export class Student {
   @Column()
   email: string;
 
-  @ManyToOne(() => Institution, (institution) => institution.students)
+  @Column('decimal', { nullable: true })
+  salary: number
+
+  @ManyToOne(() => Institution, (institution) => institution.id, { eager: true })
   institution: Institution;
 
-  @Column('decimal')
-  salary: number;
-
-  @Column({ default: true })
+  @Column({ default: false })
   isRepaymentActive: boolean;
 
-  @OneToMany(() => Funding, (funding) => funding.student)
-  funding: Funding[];
+  @OneToMany(() => Funding, (funding) => funding.student, { eager: true }) // Eagerly load funding
+    funding: Funding[];
 
   @OneToMany(() => Repayment, (repayment) => repayment.student)
   repayments: Repayment[];

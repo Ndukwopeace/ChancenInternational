@@ -1,117 +1,71 @@
-import { useState } from "react"
-import { Input, Button, Box,Heading, Stack,Text } from "@chakra-ui/react"
-import { Link } from "react-router-dom"
-import { Field } from "../../components/ui/field";
-import "../../style/authstyles/login.css"
+import '../../style/authstyles/register.css';
+import { NavLink } from 'react-router-dom';
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 const Login = () => {
-    const [email, setEmail] = useState('')
-    const [password, setPassword] = useState('')
-    const [errors, setErrors] = useState({ email: '', password: '' });
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
+  const navigate = useNavigate();
 
-    const validate = () => {
-        const newErrors = {};//initialise un nouvel objet vide en JavaScript. Cet objet est utilisé pour stocker les erreurs associées à chaque champ du formulaire
-        
-        // Validation de l'email
-        if (!email) {
-            newErrors.email = "L'adresse email est requise.";
-        } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-            newErrors.email = "L'adresse email est invalide.";
-        }
+  const handleSubmit = async (event) => {
+    event.preventDefault();
 
-        // Validation du mot de passe
-        if (!password) {
-            newErrors.password = "Le mot de passe est requis.";
-        } else if (password.length < 6) {
-            newErrors.password = "Le mot de passe doit comporter au moins 6 caractères.";
-        }
+    try {
+      const response = await axios.post('http://localhost:3000/auth/login', {
+        email,
+        password,
+      });
 
-        setErrors(newErrors);// Mettre à jour les erreurs dans l'état React
-        return Object.keys(newErrors).length === 0; // Retourne true si aucune erreur
-    };
+      const { role } = response.data;
 
-    const handleLogin = () => {
-        if (validate()) {
-            // Soumission des données après validation réussie
-            console.log({ email, password });
-            alert("Connexion réussie !");
-        } else {
-            alert("Veuillez corriger les erreurs avant de continuer.");
-        }
-    };
+      // Navigate based on user role
+      if (role === 'student') {
+        navigate('/student/student-dashboard'); // Navigate to student page
+      } else if (role === 'admin') {
+        navigate('/admin/admin-dashboard'); // Navigate to admin page
+      }
 
-    return (
-        <Box>
-      <div className="full">
-        <form className="form">
-        <Box 
-        p={10} 
-        mx="auto" 
-        borderRadius="lg" 
-        boxShadow="md"
-         >
-        <Heading
-            as="h1"
-            size="3xl"
-            mb={6}
-            textAlign="center"
-          >
-          Login
-          </Heading>
-          <Stack
-              gap="4"
-              align="flex-start"
-              maxW="600"
-            >
-            <Field 
-            className="field"
-            label="Email"
-            >
-            <Input
-                className="input"
-                placeholder="Email"
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                mb={4}
+      // Optionally, you might want to store the token in local storage or context
+    } catch (err) {
+      setError('Login failed. Please check your credentials.');
+      console.error(err);
+    }
+  };
+
+  return (
+    <div className="login">
+      <div className="form-box">
+        <form className="form" onSubmit={handleSubmit}>
+          <span className="title">Sign in</span>
+          <span className="subtitle">Please fill the Form.</span>
+          <div className="form-container">
+            <input
+              type="email"
+              className="input"
+              placeholder="Email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
             />
-            {errors.email && <p style={{ color: 'red', fontSize: '14px', marginTop: '4px' }}>{errors.email}</p>}
-        
-          </Field>
-          <Field 
-            className="field"
-            label="Password"
-            >
-            <Input
-                 className="input"
-                placeholder="Password"
-                type="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                mb={4}
+            <input
+              type="password"
+              className="input"
+              placeholder="Password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
             />
-            {errors.password && <p style={{ color: 'red', fontSize: '14px', marginTop: '4px' }}>{errors.password}</p>}           
-           </Field>
-            <Button onClick={handleLogin} colorScheme="teal" width="full" className="button">
-                Login
-                </Button>
-                <div className="link">
-            <Text style={{color:'blue',textDecoration:'underline',marginRight:'4rem'}}>
-                Forgot Password?
-            </Text>
-            <Text>
-                Don't have an account? 
-                <Link to="/auth/register" style={{color:'blue',textDecoration:'underline'}}>
-                Sign Up
-                </Link> 
-            </Text>
-            </div>
-            </Stack>
-        </Box>
+          </div>
+          {error && <p className="error">** {error} **</p>}
+          <button type="submit">Sign in</button>
         </form>
+        <div className="form-section">
+          <p>Don't have an account? <NavLink to="/auth/register">Sign up</NavLink></p>
         </div>
-        </Box>
-    )
-}
+      </div>
+    </div>
+  );
+};
 
-export default Login
+export default Login;

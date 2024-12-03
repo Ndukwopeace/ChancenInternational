@@ -52,6 +52,7 @@ export class FundingsController {
   async calculateRepaymentPercentage(@Param('id') id: string): Promise<number> {
     return this.fundingsService.calculateRepaymentPercentage(+id);
   }
+  
 }
 
 export default FundingsController

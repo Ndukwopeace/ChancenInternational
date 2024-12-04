@@ -2,12 +2,16 @@ import React, { useState } from 'react';
 import '../../style/authstyles/register.css';
 import { NavLink } from 'react-router-dom';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+
 
 const Register = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+  const navigate = useNavigate();
+
 
   const handleSubmit = async (event) => {
     event.preventDefault(); // Prevent the default form submission
@@ -18,6 +22,7 @@ const Register = () => {
         email,
         password,
       });
+      navigate('/auth/login')
       console.log('Registration successful:', response.data);
       // Optionally redirect or show a success message
     } catch (err) {

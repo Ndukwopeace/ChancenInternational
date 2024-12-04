@@ -1,13 +1,16 @@
 import Sidebar from "../re-components/Admin/Sidebar";
+import { UserProvider } from "../pages/Auth/AuthContext";
 
 const AdminLayout = ({ children }) => {
     return (
-        <div className="admin-layout">
+       <UserProvider>
+         <div className="admin-layout">
         <Sidebar />
         <div className="main-content">
             {children}
         </div>
     </div>
+       </UserProvider>
     );
 };
 

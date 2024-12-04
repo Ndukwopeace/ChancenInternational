@@ -2,8 +2,13 @@ import React, { useEffect, useState } from "react";
 import logo from "../../assets/Images/adminImages/Chance.png";
 import "../../style/adminstyles/sideBar.css"; // Ensure you have the necessary CSS
 import { NavLink } from "react-router-dom";
+import { useUser } from "../../pages/Auth/AuthContext";
 
 const Sidebar = () => {
+  const user = useUser();
+
+  if (!user) return <div>Loading...</div>;
+  
   const [activeLink, setActiveLink] = useState("Dashboard"); // Default active link
 
   const handleLinkClick = (link) => {
@@ -89,9 +94,9 @@ const Sidebar = () => {
               <img src={logo} alt="image" />
             </div>
             <div className="sidebar__info">
-              <h3>Andy Shelby</h3>
+              <h3>{user.name}</h3>
               <span style={{ color: "hsl(228, 12%, 61%)" }}>
-                andyshelby123@email.com
+                {user.email}
               </span>
             </div>
           </div>

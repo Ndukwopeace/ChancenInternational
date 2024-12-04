@@ -18,24 +18,34 @@ export class AuthService {
     return this.userRepository.save(user);
   }
 
-  async login(email: string, password: string): Promise<{ accessToken: string; role: string }> {
+  async login(email: string, password: string): Promise<{ accessToken: string; role: string; user: {id: number; name: string; email: string; role: string} }> {
   const user = await this.userRepository.findOne({ where: { email } });
   if (!user || !(await bcrypt.compare(password, user.password))) {
     throw new UnauthorizedException('Invalid credentials');
   }
 
-  const payload = { email: user.email, role: user.role }; // Include role in JWT payload
+  const payload = { email: user.email, role: user.role, name: user.name }; // Include role in JWT payload
   const accessToken = this.jwtService.sign(payload);
 
   return {
     accessToken,
-    role: user.role, // Include role in response
+    role: user.role,
+    user: {id: user.id, name: user.name, email: user.email, role: user.role}
   };
 }
 
 
   async validateUser(userId: number): Promise<User> {
     return this.userRepository.findOneBy({ id: userId });
+  }
+
+  async getUserInfo(userId: number): Promise<Partial<User>> {
+    const user = await this.validateUser(userId);
+    if(!user){
+      throw new UnauthorizedException('user not found');
+    }
+    const { password, ...userInfo } = user;
+    return userInfo;
   }
 }
 

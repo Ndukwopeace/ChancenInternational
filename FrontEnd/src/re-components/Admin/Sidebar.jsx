@@ -2,12 +2,24 @@ import React, { useEffect, useState } from "react";
 import logo from "../../assets/Images/adminImages/Chance.png";
 import "../../style/adminstyles/sideBar.css"; // Ensure you have the necessary CSS
 import { NavLink } from "react-router-dom";
-import { useUser } from "../../pages/Auth/AuthContext";
+import axios from "axios";
 
 const Sidebar = () => {
-  const user = useUser();
+ const [user, setUser] = useState("");
 
-  if (!user) return <div>Loading...</div>;
+useEffect(() => {
+  const fetchUser = async () => {
+    const id = localStorage.getItem('userId')
+    if (!id) return; 
+      try {
+        const response = await axios.get(`http://localhost:3000/auth/one/${id}`);
+        setUser(response.data)
+      } catch (error) {
+        console.log(error); 
+      }
+  }
+  fetchUser();
+}, []);
   
   const [activeLink, setActiveLink] = useState("Dashboard"); // Default active link
 

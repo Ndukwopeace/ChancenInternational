@@ -19,7 +19,20 @@ const Login = () => {
         password,
       });
 
-      const { role } = response.data;
+      const { role, user, accessToken } = response.data;
+      console.log(role);
+
+      if (user && user.id) {
+        localStorage.setItem('token', accessToken);
+        console.log(accessToken);
+
+        localStorage.setItem('userId', user.id);
+        console.log(user.id);
+        
+      }
+      else{throw new Error("User data is invalid");
+      }
+      
 
       // Navigate based on user role
       if (role === 'student') {
